@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- 窗体样式 -->
+    <Style x:Key="WindowDefaultStyleKey" TargetType="{x:Type Window}">
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <!-- CornerRadius必须设置为0，否则在win7上，界面上方两侧外边框无法闭合 -->
+                <WindowChrome CornerRadius="0"
+                              GlassFrameThickness="-1"
+                              ResizeBorderThickness="0"
+                              CaptionHeight="0"
+                              UseAeroCaptionButtons="False" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <Border x:Name="border" Background="Transparent" UseLayoutRounding="True">
+                        <!-- UseLayoutRounding="True"将控件的位置和尺寸四舍五入到最接近的整数像素值，从而提高渲染的清晰度 -->
+                        <Grid>
+                            <!-- 客户区内容在此 -->
+                            <AdornerDecorator>
+                                <ContentPresenter ClipToBounds="True" />
+                            </AdornerDecorator>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
