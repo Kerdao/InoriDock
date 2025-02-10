@@ -13,6 +13,11 @@ using System.Threading.Tasks;
 
 using InoriDock.Public;
 using System.Windows.Threading;
+using InoriDock.Public.Methods;
+using Str = InoriDock.Public.Methods.Struct;
+using System.Drawing;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace InoriDock.ViewModels
 {
@@ -22,17 +27,19 @@ namespace InoriDock.ViewModels
 
         [ObservableProperty]
         private string _title = string.Empty;
+        [ObservableProperty]
+        private ImageSource _source = new BitmapImage(new Uri("pack://application:,,,/Public/Icon/FailedImage.png"));
 
         public ICommand WindowLoadedCommond { get; private set; }
-        public ICommand MouseEnterCommond { get; private set; }
-        public ICommand MouseLeaveCommond { get; private set; }
+        public ICommand BorderDragEnter { get; private set; }
+        public ICommand BorderDrop { get; private set; }
 
         public MainWindowVM(Window window) 
         {
             _window = window;
             WindowLoadedCommond = new RelayCommand<Object?>(OnWindowLoaded);
-            MouseLeaveCommond = new RelayCommand<Object?>(OnMouseLeave);
-            MouseEnterCommond = new RelayCommand<Object?>(OnMouseEnter);
+            BorderDragEnter = new RelayCommand<Object?>(OnBorderDragEnter);
+            BorderDrop = new RelayCommand<Object?>(OnBorderDrop);
         }
 
         private void OnWindowLoaded(Object? parameter)
@@ -62,25 +69,42 @@ namespace InoriDock.ViewModels
             //    }
 
             //});
+            Str.ShortcutDescription shortcut = (Str.ShortcutDescription)Methods.ReadShortcut("C:\\Users\\xiaokedao\\Desktop\\PCL2.lnk");
+            MessageBox.Show(shortcut.TargetPath);
         }
-        private void OnMouseEnter(Object? parameter)
+
+        //鼠标拖动状态进入范围
+        private void OnBorderDragEnter(Object? parameter)
         {
-            return;
-            var button = parameter as Button;
-            if (button != null)
+            if (parameter is DragEventArgs e == false) return;
+
+            // 检查拖动的数据是否包含文件
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                var margin = button.Margin;
-                button.Margin = new Thickness(20, 0, 20, 80);
+                e.Effects = DragDropEffects.Copy; // 允许复制操作
+            }
+            else
+            {
+                e.Effects = DragDropEffects.None; // 不允许操作
             }
         }
-        private void OnMouseLeave(Object? parameter)
+        //鼠标拖动落下
+        private void OnBorderDrop(Object? parameter)
         {
-            return;
-            var button = parameter as Button;
-            if (button != null)
+            if (parameter is DragEventArgs e == false) return;
+
+            // 检查拖动的数据是否包含文件
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                var margin = button.Margin;
-                button.Margin = new Thickness(20, 0, 20, 0);
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (string file in files)
+                {
+                    MessageBox.Show($"文件路径: {file}");
+
+                    var a = IconUtilities.ExtractIcon(file, IconSize.Jumbo);
+                    var b = Methods.IconToBitmapSource(a);
+                    Source = b;
+                }
             }
         }
     }

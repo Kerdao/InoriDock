@@ -19,30 +19,69 @@
             <i:InvokeCommandAction Command="{Binding WindowLoadedCommond}" CommandParameter="nihao" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Border BorderBrush="Yellow" BorderThickness="3">
-
+    <Border AllowDrop="True"
+            Background="Transparent"
+            BorderBrush="Yellow"
+            BorderThickness="3">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="DragEnter">
+                <i:InvokeCommandAction Command="{Binding BorderDragEnter}" PassEventArgsToCommand="True" />
+            </i:EventTrigger>
+            <i:EventTrigger EventName="Drop">
+                <i:InvokeCommandAction Command="{Binding BorderDrop}" PassEventArgsToCommand="True" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
         <Border Padding="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 BorderBrush="Blue"
                 BorderThickness="1">
+            <!--
+                UseLayoutRounding确保布局计算时的数值四舍五入到最接近的整数
+                SnapsToDevicePixels确保控件的边界对齐到设备像素
+            -->
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         do:Dock.IsDockEnabled="True"
                         Background="Transparent"
                         Orientation="Horizontal">
-                <do:DockItem Width="80" Height="80" Content="{Binding Index, RelativeSource={RelativeSource self}}" />
-                <do:DockItem Width="80" Height="80" Content="{Binding Index, RelativeSource={RelativeSource self}}" />
-                <do:DockItem Width="80" Height="80" Content="{Binding Index, RelativeSource={RelativeSource self}}" />
-                <do:DockItem Width="80" Height="80" Content="{Binding Index, RelativeSource={RelativeSource self}}" />
-                <do:DockItem Width="80" Height="80" Content="{Binding Index, RelativeSource={RelativeSource self}}" />
-                <do:DockItem Width="80" Height="80" Content="{Binding Index, RelativeSource={RelativeSource self}}" />
-                <do:DockItem Width="80" Height="80" Content="{Binding Index, RelativeSource={RelativeSource self}}" />
-                <do:DockItem Width="80" Height="80" Content="{Binding Index, RelativeSource={RelativeSource self}}" />
-                <do:DockItem Width="80" Height="80" Content="{Binding Index, RelativeSource={RelativeSource self}}" />
-                <do:DockItem Width="80" Height="80" Content="{Binding Index, RelativeSource={RelativeSource self}}" />
-                <do:DockItem Width="80" Height="80" Content="{Binding Index, RelativeSource={RelativeSource self}}" />
-                <do:DockItem Width="80" Height="80" Content="{Binding Index, RelativeSource={RelativeSource self}}" />
+                <do:DockItem Width="80"
+                             Height="80"
+                             Source="{Binding Source}"/>
+                <do:DockItem Width="80"
+                             Height="80"
+                             Source="{Binding Source}"/>
+                <do:DockItem Width="80"
+                             Height="80"
+                             Source="{Binding Source}"/>
+                <do:DockItem Width="80"
+                             Height="80"
+                             Source="{Binding Source}"/>
+                <do:DockItem Width="80"
+                             Height="80"
+                             Source="{Binding Source}"/>
+                <do:DockItem Width="80"
+                             Height="80"
+                             Source="{Binding Source}"/>
+                <do:DockItem Width="80"
+                             Height="80"
+                             Source="{Binding Source}"/>
+                <do:DockItem Width="80"
+                             Height="80"
+                             Source="{Binding Source}"/>
+                <do:DockItem Width="80"
+                             Height="80"
+                             Source="{Binding Source}"/>
+                <do:DockItem Width="80"
+                             Height="80"
+                             Source="{Binding Source}"/>
+                <do:DockItem Width="80"
+                             Height="80"
+                             Source="{Binding Source}"/>
+                <do:DockItem Width="80"
+                             Height="80"
+                             Source="{Binding Source}"/>
+
             </StackPanel>
         </Border>
     </Border>

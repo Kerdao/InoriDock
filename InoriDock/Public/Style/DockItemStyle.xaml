@@ -18,11 +18,13 @@
                 <ControlTemplate TargetType="{x:Type co:DockItem}">
                     <Border BorderBrush="Transparent"
                             BorderThickness="5"
-                            Background="White"
+                            Background="Transparent"
                             CornerRadius="5"
-                            Opacity="0.8">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            >
+                        <!--<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />-->
+                        <Image Source="{TemplateBinding Source}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
+                    
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
