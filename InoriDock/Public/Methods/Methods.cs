@@ -1,8 +1,12 @@
-﻿using System.Windows;
+﻿using System.Drawing;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using Str = InoriDock.Public.Methods.Struct;
 
 namespace InoriDock.Public.Methods
 {
@@ -26,7 +30,7 @@ namespace InoriDock.Public.Methods
             {
                 System.Windows.Point mousePosition = Mouse.GetPosition(elementControl);
                 // 获取控件的中心点
-                Point controlCenter = new Point(frameworkElement.ActualWidth / 2, frameworkElement.ActualHeight / 2);
+                System.Windows.Point controlCenter = new System.Windows.Point(frameworkElement.ActualWidth / 2, frameworkElement.ActualHeight / 2);
 
                 // 计算欧几里得距离
                 double distance = Math.Sqrt(Math.Pow(mousePosition.X - controlCenter.X, 2) +
