@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:pu="clr-namespace:InoriDock.Public"
         xmlns:do="clr-namespace:InoriDock.Public.DockbarComponents"
         Title="MainWindow"
         Width="1200"
@@ -45,42 +44,19 @@
                         do:Dock.IsDockEnabled="True"
                         Background="Transparent"
                         Orientation="Horizontal">
-                <do:DockItem Width="80"
-                             Height="80"
-                             Source="{Binding Source}"/>
-                <do:DockItem Width="80"
-                             Height="80"
-                             Source="{Binding Source}"/>
-                <do:DockItem Width="80"
-                             Height="80"
-                             Source="{Binding Source}"/>
-                <do:DockItem Width="80"
-                             Height="80"
-                             Source="{Binding Source}"/>
-                <do:DockItem Width="80"
-                             Height="80"
-                             Source="{Binding Source}"/>
-                <do:DockItem Width="80"
-                             Height="80"
-                             Source="{Binding Source}"/>
-                <do:DockItem Width="80"
-                             Height="80"
-                             Source="{Binding Source}"/>
-                <do:DockItem Width="80"
-                             Height="80"
-                             Source="{Binding Source}"/>
-                <do:DockItem Width="80"
-                             Height="80"
-                             Source="{Binding Source}"/>
-                <do:DockItem Width="80"
-                             Height="80"
-                             Source="{Binding Source}"/>
-                <do:DockItem Width="80"
-                             Height="80"
-                             Source="{Binding Source}"/>
-                <do:DockItem Width="80"
-                             Height="80"
-                             Source="{Binding Source}"/>
+                <Button Width="80"
+                        Height="80"
+                        Content="+"
+                        Command="{Binding AddItem}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}}" />
+                <Button Width="80"
+                        Height="80"
+                        Content="-"
+                        Command="{Binding RemoveItem}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}}" />
+
+                <do:DockItem/>
+
 
             </StackPanel>
         </Border>

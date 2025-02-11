@@ -366,3 +366,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/InoriDock/Public/Icon/照片加载失败.png
+/InoriDock/Public/Icon/null.png

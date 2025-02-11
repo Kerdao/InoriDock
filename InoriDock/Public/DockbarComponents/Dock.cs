@@ -1,11 +1,12 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
 namespace InoriDock.Public.DockbarComponents;
 
-public static class Dock
+public class Dock
 {
     private static object DockOwner;
 
@@ -122,72 +123,22 @@ public static class Dock
     public static readonly DependencyProperty PanclIndexProperty =
         DependencyProperty.RegisterAttached("PanclIndex", typeof(int), typeof(Dock), new PropertyMetadata(-1));
 
+
     private static List<Panel> _dockList;
     private static List<List<DockItem>> _dockItemList;
 
+    public static DockList GetDockList
+    {
+        get
+        {
+            return new DockList(_dockList, _dockItemList);
+        }
+    }
 
     static Dock()
     {
         _dockList = [];
         _dockItemList = [];
-    }
-
-    /// <summary>
-    /// 刷新全部Dock(如有加入新的Dock或及DockItem)
-    /// </summary>
-    public static void Refresh()
-    {
-        return;
-        //暂定
-        //清除所有dockItem
-        foreach (List<DockItem> d in _dockItemList)
-        {
-            foreach(DockItem item in d)
-            {
-                item.MouseEnter -= OnDockItemMouseEnter;
-                item.MouseLeave -= OnDockItemMouseLeave;
-            }
-        }
-        foreach (var item in _dockList)
-        {
-            SetMouseOverIndex(item, -1);
-            item.Loaded -= OnDockLoaded;
-            item.MouseEnter -= OnDockMouseEnter;
-            item.MouseLeave -= OnDockMouseLeave;
-        }
-        _dockItemList.Clear();
-        _dockList.Clear();
-    }
-
-    /// <summary>
-    /// 刷新指定Dock(如有加入DockItem)
-    /// </summary>
-    /// <param name="obj"></param>
-    public static void Refresh(object obj)
-    {
-        var panel = (Panel)obj;
-
-        //为子元素事件订阅和记录子元素中的所有dockItem
-        foreach (DockItem item in _dockItemList[GetPanclIndex(panel)])
-        {
-            item.MouseEnter -= OnDockItemMouseEnter;
-            item.MouseLeave -= OnDockItemMouseLeave;
-        }
-        _dockItemList[GetPanclIndex(panel)].Clear();
-
-        int index = 0;
-        foreach (var item in panel.Children)
-        {
-            if (item is DockItem dockItem)
-            {
-                dockItem.Index = index;
-                index += 1;
-
-                _dockItemList[GetPanclIndex(panel)].Add(dockItem);
-                dockItem.MouseEnter += OnDockItemMouseEnter;
-                dockItem.MouseLeave += OnDockItemMouseLeave;
-            }
-        }
     }
 
     private static void SetDockItemStyle(int panelIndex , int index, int Grade)
@@ -199,14 +150,11 @@ public static class Dock
             return;
         }
         
-            _dockItemList[panelIndex][index].UpdateStyle(Grade);
+            _dockItemList[panelIndex][index].BouncingAnimation(Grade);
 
         
                       
     }
-
-
-
     private static void OnDockLoaded(object sender, RoutedEventArgs e)
     {
         var panel = (Panel)sender;
@@ -231,18 +179,15 @@ public static class Dock
             }
         }
     }
-
     private static void OnDockMouseEnter(object sender, MouseEventArgs e)
     {
         //暂且不写
         //e.Handled = true;
     }
-
     private static void OnDockMouseLeave(object sender, MouseEventArgs e)
     {
         SetMouseOverIndex((DependencyObject)sender, -1);
     }
-
     private static void OnDockItemMouseEnter(object sender, MouseEventArgs e)
     {
         var uI = (UIElement)sender;
@@ -253,10 +198,97 @@ public static class Dock
 
         e.Handled = true;
     }
-
     private static void OnDockItemMouseLeave(object sender, MouseEventArgs e)
     {
         //暂且不写
         e.Handled = true;
+    }
+
+
+    /// <summary>
+    /// 刷新全部Dock(如有加入新的Dock或及DockItem)
+    /// </summary>
+    public static void Refresh()
+    {
+        return;
+        //暂定
+        //清除所有dockItem
+        foreach (List<DockItem> d in _dockItemList)
+        {
+            foreach (DockItem item in d)
+            {
+                item.MouseEnter -= OnDockItemMouseEnter;
+                item.MouseLeave -= OnDockItemMouseLeave;
+            }
+        }
+        foreach (var item in _dockList)
+        {
+            SetMouseOverIndex(item, -1);
+            item.Loaded -= OnDockLoaded;
+            item.MouseEnter -= OnDockMouseEnter;
+            item.MouseLeave -= OnDockMouseLeave;
+        }
+        _dockItemList.Clear();
+        _dockList.Clear();
+    }
+
+    /// <summary>
+    /// 刷新指定Dock(如有加入DockItem)
+    /// </summary>
+    /// <param name="obj"></param>
+    public static void Refresh(Panel panel)
+    {
+
+        //为子元素事件订阅和记录子元素中的所有dockItem
+        foreach (DockItem item in _dockItemList[GetPanclIndex(panel)])
+        {
+            item.MouseEnter -= OnDockItemMouseEnter;
+            item.MouseLeave -= OnDockItemMouseLeave;
+        }
+        _dockItemList[GetPanclIndex(panel)].Clear();
+
+        int index = 0;
+        foreach (var item in panel.Children)
+        {
+            if (item is DockItem dockItem)
+            {
+                dockItem.Index = index;
+                index += 1;
+
+                _dockItemList[GetPanclIndex(panel)].Add(dockItem);
+                dockItem.MouseEnter += OnDockItemMouseEnter;
+                dockItem.MouseLeave += OnDockItemMouseLeave;
+            }
+        }
+    }
+
+    public static void AddItem(int DockIdex, DockItem item)
+    {
+        //没完善
+        Panel panel = _dockList[DockIdex];
+        
+        item.Index = _dockItemList[DockIdex].Count;
+
+        panel.Children.Add(item);
+        _dockItemList[DockIdex].Add(item);
+    }
+    public static void AddItem(int DockIdex, DockItem item,int InsertIndex)
+    {
+        //没完善
+        Panel panel = _dockList[DockIdex];
+
+        item.Index = _dockItemList[DockIdex].Count;
+
+        panel.Children.Add(item);
+        _dockItemList[DockIdex].Insert(InsertIndex,item);
+    }
+    public static void RemoveItem(int DockIdex, int Index)
+    {
+        //没完善
+        Panel panel = _dockList[DockIdex];
+
+        DockItem item = _dockItemList[DockIdex][Index];
+        panel.Children.Remove(item);
+        _dockItemList[DockIdex].RemoveAt(Index);
     }
 }

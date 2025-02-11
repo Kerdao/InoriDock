@@ -19,6 +19,9 @@ using System.Drawing;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
+using DockCom = InoriDock.Public.DockbarComponents.Dock;
+using InoriDock.Public.DockbarComponents;
+
 namespace InoriDock.ViewModels
 {
     public partial class MainWindowVM : ObservableObject
@@ -27,12 +30,12 @@ namespace InoriDock.ViewModels
 
         [ObservableProperty]
         private string _title = string.Empty;
-        [ObservableProperty]
-        private ImageSource _source = new BitmapImage(new Uri("pack://application:,,,/Public/Icon/FailedImage.png"));
 
         public ICommand WindowLoadedCommond { get; private set; }
         public ICommand BorderDragEnter { get; private set; }
         public ICommand BorderDrop { get; private set; }
+        public ICommand AddItem { get; private set; }
+        public ICommand RemoveItem { get; private set; }
 
         public MainWindowVM(Window window) 
         {
@@ -40,6 +43,19 @@ namespace InoriDock.ViewModels
             WindowLoadedCommond = new RelayCommand<Object?>(OnWindowLoaded);
             BorderDragEnter = new RelayCommand<Object?>(OnBorderDragEnter);
             BorderDrop = new RelayCommand<Object?>(OnBorderDrop);
+            AddItem = new RelayCommand<Object?>((parameter) =>
+            {
+                Panel panel = (Panel)parameter;
+
+                DockCom.AddItem(DockCom.GetPanclIndex(panel), new DockItem { TargetPath = "D:\\Program\\game\\Delta Force\\launcher\\delta_force_launcher.exe" });
+                DockCom.Refresh(panel);
+            });
+            RemoveItem = new RelayCommand<Object?>((parameter) =>
+            {
+                Panel panel = (Panel)parameter;
+                DockCom.RemoveItem(DockCom.GetPanclIndex(panel), 0);
+                DockCom.Refresh(panel);
+            });
         }
 
         private void OnWindowLoaded(Object? parameter)
@@ -69,8 +85,6 @@ namespace InoriDock.ViewModels
             //    }
 
             //});
-            Str.ShortcutDescription shortcut = (Str.ShortcutDescription)Methods.ReadShortcut("C:\\Users\\xiaokedao\\Desktop\\PCL2.lnk");
-            MessageBox.Show(shortcut.TargetPath);
         }
 
         //鼠标拖动状态进入范围
@@ -103,7 +117,7 @@ namespace InoriDock.ViewModels
 
                     var a = IconUtilities.ExtractIcon(file, IconSize.Jumbo);
                     var b = Methods.IconToBitmapSource(a);
-                    Source = b;
+
                 }
             }
         }

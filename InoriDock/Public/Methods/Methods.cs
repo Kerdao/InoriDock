@@ -176,20 +176,62 @@ namespace InoriDock.Public.Methods
     
         public static BitmapSource IconToBitmapSource(Icon icon)
         {
-            // 将 Icon 转换为 Bitmap
-            Bitmap bitmap = icon.ToBitmap();
+            try
+            {
+                // 将 Icon 转换为 Bitmap
+                Bitmap bitmap = icon.ToBitmap();
 
-            // 将 Bitmap 转换为 BitmapSource
-            IntPtr hBitmap = bitmap.GetHbitmap();
-            BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
-                hBitmap,
-                IntPtr.Zero,
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
+                // 将 Bitmap 转换为 BitmapSource
+                IntPtr hBitmap = bitmap.GetHbitmap();
+                BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
+                    hBitmap,
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions());
 
-            // 释放 GDI 对象
-            DeleteObject(hBitmap);
-            return bitmapSource;
+                // 释放 GDI 对象
+                DeleteObject(hBitmap);
+                return bitmapSource;
+            }
+            catch
+            {
+                return new BitmapImage(new Uri("pack://application:,,,/Public/Icon/FailedImage.png"));
+            }
         }
+
+        public static BitmapSource IconToBitmapSourceFromPath(string path)
+        {
+            try
+            {
+                Icon icon = IconUtilities.ExtractIcon(path, IconSize.Jumbo);
+
+                // 将 Icon 转换为 Bitmap
+                Bitmap bitmap = icon.ToBitmap();
+
+                // 将 Bitmap 转换为 BitmapSource
+                IntPtr hBitmap = bitmap.GetHbitmap();
+                BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
+                    hBitmap,
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions());
+
+                // 释放 GDI 对象
+                DeleteObject(hBitmap);
+                return bitmapSource;
+            }
+            catch
+            {
+                return new BitmapImage(new Uri("pack://application:,,,/Public/Icon/FailedImage.png"));
+            }
+
+        }
+
+        public static object GetParent(DependencyObject Control)
+        {
+            return VisualTreeHelper.GetParent(Control);
+        }
+
+
     }
 }
