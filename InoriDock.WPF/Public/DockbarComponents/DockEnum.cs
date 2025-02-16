@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InoriDock.Public.DockbarComponents.Model
+namespace InoriDock.WPF.Public.DockbarComponents
 {
-    public class ItemMessage
+    public static class DockEnum
     {
-        public string TargetPath {  get; set; }
+        enum ItemGrade
+        {
+
+        }
     }
 }

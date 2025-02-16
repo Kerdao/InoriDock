@@ -4,9 +4,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
-using met = InoriDock.Public.Methods.Methods;
+using met = InoriDock.WPF.Public.Methods.Methods;
 
-namespace InoriDock.Public.DockbarComponents
+namespace InoriDock.WPF.Public.DockbarComponents
 {
     public class DockItem : Button
     {
@@ -45,10 +45,6 @@ namespace InoriDock.Public.DockbarComponents
             {
                 UpdateIcon();
             };
-        }
-        ~DockItem()
-        {
-            MessageBox.Show("老子去天堂了");
         }
 
         private void StartAnimation(string AnimationName, double To)
@@ -93,7 +89,7 @@ namespace InoriDock.Public.DockbarComponents
 
         public void UpdateIndex()
         {
-            if ((met.GetParent(this) is Panel panel) == false)
+            if ((Methods.Methods.GetParent(this) is Panel panel) == false)
             {
                 Index = -1;
                 return;
@@ -105,17 +101,17 @@ namespace InoriDock.Public.DockbarComponents
             {
                 if (this == item)
                 {
-                    i += 1;
+                    this.Index = i;
                 }
+                i += 1;
             }
             return;
         }
         public void UpdateIcon()
         {
             if (TargetPath == null) return;
-            Source = met.IconToBitmapSourceFromPath(TargetPath);
+            Source = Methods.Methods.IconToBitmapSourceFromPath(TargetPath);
         }
-
         //鼠标over或在旁边的动画
         public void BouncingAnimation(int Grade)
         {

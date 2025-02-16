@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InoriDock.Public.DockbarComponents.Model
+namespace InoriDock.WPF.Public.DockbarComponents.Model
 {
     public class RootMessage
     {

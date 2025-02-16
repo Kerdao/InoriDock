@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InoriDock.Public.Methods
+namespace InoriDock.WPF.Public.Methods
 {
     public class Struct
     {

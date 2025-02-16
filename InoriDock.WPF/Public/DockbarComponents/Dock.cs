@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace InoriDock.Public.DockbarComponents;
+namespace InoriDock.WPF.Public.DockbarComponents;
 
 public class Dock
 {
@@ -208,6 +208,7 @@ public class Dock
     /// <summary>
     /// 刷新全部Dock(如有加入新的Dock或及DockItem)
     /// </summary>
+    [Obsolete("此方法尚未完成，功能暂定，请使用重载方法。", true)]
     public static void Refresh()
     {
         return;
@@ -236,8 +237,9 @@ public class Dock
     /// 刷新指定Dock(如有加入DockItem)
     /// </summary>
     /// <param name="obj"></param>
-    public static void Refresh(Panel panel)
+    public static void Refresh(int panelInt)
     {
+        Panel panel = _dockList[panelInt];
 
         //为子元素事件订阅和记录子元素中的所有dockItem
         foreach (DockItem item in _dockItemList[GetPanclIndex(panel)])

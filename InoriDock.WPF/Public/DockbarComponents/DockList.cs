@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace InoriDock.Public.DockbarComponents
+namespace InoriDock.WPF.Public.DockbarComponents
 {
     public class DockList
     {

@@ -11,18 +11,19 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Threading.Tasks;
 
-using InoriDock.Public;
+using InoriDock.WPF.Public;
 using System.Windows.Threading;
-using InoriDock.Public.Methods;
-using Str = InoriDock.Public.Methods.Struct;
+using Str = InoriDock.WPF.Public.Methods.Struct;
 using System.Drawing;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-using DockCom = InoriDock.Public.DockbarComponents.Dock;
-using InoriDock.Public.DockbarComponents;
+using DockCom = InoriDock.WPF.Public.DockbarComponents.Dock;
+using InoriDock.WPF.Public.DockbarComponents;
+using InoriDock.WPF.Public.Methods;
+using Dock = InoriDock.WPF.Public.DockbarComponents.Dock;
 
-namespace InoriDock.ViewModels
+namespace InoriDock.WPF.ViewModels
 {
     public partial class MainWindowVM : ObservableObject
     {
@@ -47,14 +48,27 @@ namespace InoriDock.ViewModels
             {
                 Panel panel = (Panel)parameter;
 
-                DockCom.AddItem(DockCom.GetPanclIndex(panel), new DockItem { TargetPath = "D:\\Program\\game\\Delta Force\\launcher\\delta_force_launcher.exe" });
-                DockCom.Refresh(panel);
+                int panelIndex = Dock.GetPanclIndex(panel);
+                if (panelIndex == -1)
+                {
+                    throw new InvalidOperationException(
+                        "This Panel control has not enabled the Dock.IsDockEnabled property.");
+                }
+
+                Dock.AddItem(Dock.GetPanclIndex(panel), new DockItem { TargetPath = "D:\\Program\\game\\Delta Force\\launcher\\delta_force_launcher.exe" });
+                Dock.Refresh(panelIndex);
             });
             RemoveItem = new RelayCommand<Object?>((parameter) =>
             {
                 Panel panel = (Panel)parameter;
-                DockCom.RemoveItem(DockCom.GetPanclIndex(panel), 0);
-                DockCom.Refresh(panel);
+                int panelIndex = Dock.GetPanclIndex(panel);
+                if (panelIndex == -1)
+                {
+                    throw new InvalidOperationException(
+                        "This Panel control has not enabled the Dock.IsDockEnabled property.");
+                }
+                Dock.RemoveItem(Dock.GetPanclIndex(panel), 0);
+                Dock.Refresh(panelIndex);
             });
         }
 

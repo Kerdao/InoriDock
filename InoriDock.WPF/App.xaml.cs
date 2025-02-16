@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace InoriDock
+namespace InoriDock.WPF
 {
     /// <summary>
     /// Interaction logic for App.xaml

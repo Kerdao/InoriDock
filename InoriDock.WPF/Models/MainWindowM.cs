@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InoriDock.Models
+namespace InoriDock.WPF.Models
 {
     public class MainWindowM
     {

@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using InoriDock.Public;
-using InoriDock.ViewModels;
+using InoriDock.WPF.Public;
+using InoriDock.WPF.ViewModels;
 
-namespace InoriDock.Views
+namespace InoriDock.WPF.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

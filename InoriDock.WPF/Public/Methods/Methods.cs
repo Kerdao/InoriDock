@@ -6,9 +6,9 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using Str = InoriDock.Public.Methods.Struct;
+using Str = InoriDock.WPF.Public.Methods.Struct;
 
-namespace InoriDock.Public.Methods
+namespace InoriDock.WPF.Public.Methods
 {
     class Methods
     {
@@ -140,7 +140,7 @@ namespace InoriDock.Public.Methods
         /// </summary>
         /// <param name="lnkFilePath">快捷方式文件的完整路径</param>
         /// <returns>包含快捷方式信息的 ShortcutDescription 对象</returns>
-        public static Str.ShortcutDescription? ReadShortcut(string lnkFilePath)
+        public static Struct.ShortcutDescription? ReadShortcut(string lnkFilePath)
         {
             var shellType = Type.GetTypeFromProgID("WScript.Shell");
 
@@ -157,7 +157,7 @@ namespace InoriDock.Public.Methods
                 return null;
             }
 
-            return new Str.ShortcutDescription()
+            return new Struct.ShortcutDescription()
             {
                 Arguments = shortcut.Arguments,
                 Description = shortcut.Description,
@@ -234,4 +234,4 @@ namespace InoriDock.Public.Methods
 
 
     }
-}
+}   
