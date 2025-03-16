@@ -3,8 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using InoriDock.WPF.Public.DockComponents.DockItem;
 
-namespace InoriDock.WPF.Public.DockbarComponents;
+namespace InoriDock.WPF.Public.DockComponents;
 
 public class Dock
 {
@@ -125,7 +126,7 @@ public class Dock
 
 
     private static List<Panel> _dockList;
-    private static List<List<DockItem>> _dockItemList;
+    private static List<List<DockItemBase>> _dockItemList;
 
     public static DockList GetDockList
     {
@@ -161,12 +162,12 @@ public class Dock
 
         SetPanclIndex(panel, _dockList.Count);
         _dockList.Add(panel);
-        _dockItemList.Add(new List<DockItem>());
+        _dockItemList.Add(new List<DockItemBase>());
 
         int index = 0;
         foreach (object item in panel.Children)
         {
-            if (item is DockItem dockItem)
+            if (item is DockItemBase dockItem)
             {
                 dockItem.Index = index;
                 index += 1;
@@ -191,7 +192,7 @@ public class Dock
     private static void OnDockItemMouseEnter(object sender, MouseEventArgs e)
     {
         var uI = (UIElement)sender;
-        var button = (DockItem)sender;
+        var button = (DockItemBase)sender;
         //MessageBox.Show(sender.ToString()+button.Index);
 
         SetMouseOverIndex(VisualTreeHelper.GetParent(uI), button.Index);
@@ -214,9 +215,9 @@ public class Dock
         return;
         //暂定
         //清除所有dockItem
-        foreach (List<DockItem> d in _dockItemList)
+        foreach (List<DockItemBase> d in _dockItemList)
         {
-            foreach (DockItem item in d)
+            foreach (DockItemBase item in d)
             {
                 item.MouseEnter -= OnDockItemMouseEnter;
                 item.MouseLeave -= OnDockItemMouseLeave;
@@ -242,7 +243,7 @@ public class Dock
         Panel panel = _dockList[panelInt];
 
         //为子元素事件订阅和记录子元素中的所有dockItem
-        foreach (DockItem item in _dockItemList[GetPanclIndex(panel)])
+        foreach (DockItemBase item in _dockItemList[GetPanclIndex(panel)])
         {
             item.MouseEnter -= OnDockItemMouseEnter;
             item.MouseLeave -= OnDockItemMouseLeave;
@@ -252,7 +253,7 @@ public class Dock
         int index = 0;
         foreach (var item in panel.Children)
         {
-            if (item is DockItem dockItem)
+            if (item is DockItemBase dockItem)
             {
                 dockItem.Index = index;
                 index += 1;
@@ -263,23 +264,18 @@ public class Dock
             }
         }
     }
-
-    public static void AddItem(int DockIdex, DockItem item)
+    public static void AddItem(int DockIdex, DockItemBase item)
     {
         //没完善
         Panel panel = _dockList[DockIdex];
-        
-        item.Index = _dockItemList[DockIdex].Count;
 
         panel.Children.Add(item);
         _dockItemList[DockIdex].Add(item);
     }
-    public static void AddItem(int DockIdex, DockItem item,int InsertIndex)
+    public static void AddItem(int DockIdex, DockItemBase item,int InsertIndex)
     {
         //没完善
         Panel panel = _dockList[DockIdex];
-
-        item.Index = _dockItemList[DockIdex].Count;
 
         panel.Children.Add(item);
         _dockItemList[DockIdex].Insert(InsertIndex,item);
@@ -289,8 +285,14 @@ public class Dock
         //没完善
         Panel panel = _dockList[DockIdex];
 
-        DockItem item = _dockItemList[DockIdex][Index];
+        DockItemBase item = _dockItemList[DockIdex][Index];
         panel.Children.Remove(item);
         _dockItemList[DockIdex].RemoveAt(Index);
     }
+
+    public static void ShowPreviewItem(int DockIdex, int InsertIndex)
+    {
+
+    }
+
 }

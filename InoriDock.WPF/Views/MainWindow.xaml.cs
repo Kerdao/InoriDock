@@ -1,6 +1,9 @@
-﻿using System.Windows;
+﻿using System.Drawing;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Effects;
 using InoriDock.WPF.Public;
+using InoriDock.WPF.Public.Methods;
 using InoriDock.WPF.ViewModels;
 
 namespace InoriDock.WPF.Views
@@ -16,6 +19,5 @@ namespace InoriDock.WPF.Views
 
             this.DataContext = new MainWindowVM(this);
         }
-
     }
 }

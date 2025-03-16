@@ -195,11 +195,11 @@ namespace InoriDock.WPF.Public.Methods
             }
             catch
             {
-                return new BitmapImage(new Uri("pack://application:,,,/Public/Icon/FailedImage.png"));
+                return new BitmapImage(new Uri("pack://application:,,,/Assets/Icon/FailedImage.png"));
             }
         }
 
-        public static BitmapSource IconToBitmapSourceFromPath(string path)
+        public static BitmapSource IconToBitmapSource(string path)
         {
             try
             {
@@ -222,7 +222,7 @@ namespace InoriDock.WPF.Public.Methods
             }
             catch
             {
-                return new BitmapImage(new Uri("pack://application:,,,/Public/Icon/FailedImage.png"));
+                return new BitmapImage(new Uri("pack://application:,,,/Assets/Icon/FailedImage.png"));
             }
 
         }

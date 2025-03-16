@@ -18,10 +18,10 @@ using System.Drawing;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-using DockCom = InoriDock.WPF.Public.DockbarComponents.Dock;
-using InoriDock.WPF.Public.DockbarComponents;
+using DockCom = InoriDock.WPF.Public.DockComponents.Dock;
+using InoriDock.WPF.Public.DockComponents;
 using InoriDock.WPF.Public.Methods;
-using Dock = InoriDock.WPF.Public.DockbarComponents.Dock;
+using Dock = InoriDock.WPF.Public.DockComponents.Dock;
 
 namespace InoriDock.WPF.ViewModels
 {
@@ -33,43 +33,15 @@ namespace InoriDock.WPF.ViewModels
         private string _title = string.Empty;
 
         public ICommand WindowLoadedCommond { get; private set; }
-        public ICommand BorderDragEnter { get; private set; }
+        public ICommand BorderPreviewDragOver { get; private set; }
         public ICommand BorderDrop { get; private set; }
-        public ICommand AddItem { get; private set; }
-        public ICommand RemoveItem { get; private set; }
 
         public MainWindowVM(Window window) 
         {
             _window = window;
             WindowLoadedCommond = new RelayCommand<Object?>(OnWindowLoaded);
-            BorderDragEnter = new RelayCommand<Object?>(OnBorderDragEnter);
+            BorderPreviewDragOver = new RelayCommand<Object?>(OnBorderPreviewDragOver);
             BorderDrop = new RelayCommand<Object?>(OnBorderDrop);
-            AddItem = new RelayCommand<Object?>((parameter) =>
-            {
-                Panel panel = (Panel)parameter;
-
-                int panelIndex = Dock.GetPanclIndex(panel);
-                if (panelIndex == -1)
-                {
-                    throw new InvalidOperationException(
-                        "This Panel control has not enabled the Dock.IsDockEnabled property.");
-                }
-
-                Dock.AddItem(Dock.GetPanclIndex(panel), new DockItem { TargetPath = "D:\\Program\\game\\Delta Force\\launcher\\delta_force_launcher.exe" });
-                Dock.Refresh(panelIndex);
-            });
-            RemoveItem = new RelayCommand<Object?>((parameter) =>
-            {
-                Panel panel = (Panel)parameter;
-                int panelIndex = Dock.GetPanclIndex(panel);
-                if (panelIndex == -1)
-                {
-                    throw new InvalidOperationException(
-                        "This Panel control has not enabled the Dock.IsDockEnabled property.");
-                }
-                Dock.RemoveItem(Dock.GetPanclIndex(panel), 0);
-                Dock.Refresh(panelIndex);
-            });
         }
 
         private void OnWindowLoaded(Object? parameter)
@@ -102,10 +74,10 @@ namespace InoriDock.WPF.ViewModels
         }
 
         //鼠标拖动状态进入范围
-        private void OnBorderDragEnter(Object? parameter)
+        private void OnBorderPreviewDragOver(Object? parameter)
         {
             if (parameter is DragEventArgs e == false) return;
-
+            
             // 检查拖动的数据是否包含文件
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
@@ -115,12 +87,16 @@ namespace InoriDock.WPF.ViewModels
             {
                 e.Effects = DragDropEffects.None; // 不允许操作
             }
+
+            //阻止DragOver替换e.Effects
+            e.Handled = true;
         }
         //鼠标拖动落下
         private void OnBorderDrop(Object? parameter)
         {
             if (parameter is DragEventArgs e == false) return;
 
+            MessageBox.Show($"文件路径: ");
             // 检查拖动的数据是否包含文件
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {

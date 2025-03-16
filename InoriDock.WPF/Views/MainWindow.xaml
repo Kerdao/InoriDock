@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:do="clr-namespace:InoriDock.WPF.Public.DockbarComponents"
+        xmlns:do="clr-namespace:InoriDock.WPF.Public.DockComponents"
         Title="MainWindow"
         Width="1200"
         Height="200"
@@ -23,8 +23,8 @@
             BorderBrush="Yellow"
             BorderThickness="3">
         <i:Interaction.Triggers>
-            <i:EventTrigger EventName="DragEnter">
-                <i:InvokeCommandAction Command="{Binding BorderDragEnter}" PassEventArgsToCommand="True" />
+            <i:EventTrigger EventName="PreviewDragOver">
+                <i:InvokeCommandAction Command="{Binding BorderPreviewDragOver}" PassEventArgsToCommand="True" />
             </i:EventTrigger>
             <i:EventTrigger EventName="Drop">
                 <i:InvokeCommandAction Command="{Binding BorderDrop}" PassEventArgsToCommand="True" />
@@ -44,16 +44,6 @@
                         do:Dock.IsDockEnabled="True"
                         Background="Transparent"
                         Orientation="Horizontal">
-                <Button Width="80"
-                        Height="80"
-                        Content="+"
-                        Command="{Binding AddItem}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}}" />
-                <Button Width="80"
-                        Height="80"
-                        Content="-"
-                        Command="{Binding RemoveItem}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}}" />
 
                 <!--<do:DockItem/>-->
 

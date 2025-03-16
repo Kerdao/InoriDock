@@ -1,14 +1,17 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-
-using met = InoriDock.WPF.Public.Methods.Methods;
-
-namespace InoriDock.WPF.Public.DockbarComponents
+using Method = InoriDock.WPF.Public.Methods.Methods;
+namespace InoriDock.WPF.Public.DockComponents.DockItem
 {
-    public class DockItem : Button
+    public class DockItemBase : Button
     {
         public int Index
         {
@@ -17,7 +20,7 @@ namespace InoriDock.WPF.Public.DockbarComponents
         }
         // Using a DependencyProperty as the backing store for Index.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IndexProperty =
-            DependencyProperty.Register("Index", typeof(int), typeof(DockItem), new PropertyMetadata(-1));
+            DependencyProperty.Register("Index", typeof(int), typeof(DockItemBase), new PropertyMetadata(-1));
 
         public ImageSource Source
         {
@@ -26,25 +29,13 @@ namespace InoriDock.WPF.Public.DockbarComponents
         }
         // Using a DependencyProperty as the backing store for Source.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SourceProperty =
-            DependencyProperty.Register("Source", typeof(ImageSource), typeof(DockItem));
-
+            DependencyProperty.Register("Source", typeof(ImageSource), typeof(DockItemBase));
 
         private ResourceDictionary _resourceDictionary;
+        public string Type { get; set; }
 
-        /// <summary>
-        /// 目标路径
-        /// </summary>
-        public string TargetPath { get; set; }
-
-        public DockItem()
+        public DockItemBase()
         {
-            // 创建一个新的ResourceDictionary并加载资源文件
-            _resourceDictionary = Methods.Methods.GetResource("pack://application:,,,/Public/DockbarComponents/Animation/DockItemAnimation.xaml");
-
-            this.Loaded += (sender, e) =>
-            {
-                UpdateIcon();
-            };
         }
 
         private void StartAnimation(string AnimationName, double To)
@@ -106,11 +97,6 @@ namespace InoriDock.WPF.Public.DockbarComponents
                 i += 1;
             }
             return;
-        }
-        public void UpdateIcon()
-        {
-            if (TargetPath == null) return;
-            Source = Methods.Methods.IconToBitmapSourceFromPath(TargetPath);
         }
         //鼠标over或在旁边的动画
         public void BouncingAnimation(int Grade)

@@ -7,8 +7,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Public/Style/WindowStyle.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Public/Style/DockItemStyle.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Public/DockbarComponents/Animation/DockItemAnimation.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Public/DockComponents/Style/DockItemStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Public/DockComponents/Animation/DockItemAnimation.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

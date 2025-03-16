@@ -30,6 +30,11 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Remove="Style\**" />
+    <Page Update="Public\DockComponents\Style\DockItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>
@@ -45,11 +50,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Public\Icon\FailedImage.png" />
+    <None Remove="Assets\Icon\FailedImage.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Public\Icon\FailedImage.png">
+    <Resource Include="Assets\Icon\FailedImage.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

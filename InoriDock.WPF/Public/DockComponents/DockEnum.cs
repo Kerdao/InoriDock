@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InoriDock.WPF.Public.DockbarComponents
+namespace InoriDock.WPF.Public.DockComponents
 {
     public static class DockEnum
     {

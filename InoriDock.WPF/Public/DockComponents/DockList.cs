@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using InoriDock.WPF.Public.DockComponents.DockItem;
 
-namespace InoriDock.WPF.Public.DockbarComponents
+namespace InoriDock.WPF.Public.DockComponents
 {
     public class DockList
     {
         //存放作为DockButton父容器的panel，用于与_dockList的一维层对照
         private List<Panel> _PanelList;
         //存放所有的DockButton，并根据其父容器panel存放
-        private List<List<DockItem>> _dockList;
+        private List<List<DockItemBase>> _dockList;
 
-        public DockList(List<Panel> panelList,List<List<DockItem>> dockItemList)
+        public DockList(List<Panel> panelList,List<List<DockItemBase>> dockItemList)
         {
             _PanelList = panelList;
             _dockList = dockItemList;
@@ -26,7 +27,7 @@ namespace InoriDock.WPF.Public.DockbarComponents
         /// <param name="panelIndex"></param>
         /// <param name="dockItemIndex"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public DockItem this[int panelIndex,int dockItemIndex]
+        public DockItemBase this[int panelIndex,int dockItemIndex]
         {
             get
             {
@@ -54,7 +55,7 @@ namespace InoriDock.WPF.Public.DockbarComponents
         /// </summary>
         /// <param name="panelIndex"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public (Panel,List<DockItem>) this[int panelIndex]
+        public (Panel,List<DockItemBase>) this[int panelIndex]
         {
             get
             {

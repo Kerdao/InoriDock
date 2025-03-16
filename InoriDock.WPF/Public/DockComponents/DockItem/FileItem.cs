@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InoriDock.WPF.Public.DockbarComponents.Model
+namespace InoriDock.WPF.Public.DockComponents.DockItem
 {
-    public class ItemMessage
+    public class FileItem
     {
-        public string TargetPath {  get; set; }
+        public string OpenWith { get; set; }
     }
 }
