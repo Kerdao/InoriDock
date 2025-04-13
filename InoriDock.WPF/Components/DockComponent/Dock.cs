@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using InoriDock.WPF.Public.DockComponents.DockItem;
+using InoriDock.WPF.Components.DockComponent.DockItem;
 
-namespace InoriDock.WPF.Public.DockComponents;
+namespace InoriDock.WPF.Components.DockComponent;
 
 public class Dock
 {

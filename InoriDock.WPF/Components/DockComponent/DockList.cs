@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using InoriDock.WPF.Public.DockComponents.DockItem;
+﻿using System.Windows.Controls;
+using InoriDock.WPF.Components.DockComponent.DockItem;
 
-namespace InoriDock.WPF.Public.DockComponents
+namespace InoriDock.WPF.Components.DockComponent
 {
     public class DockList
     {

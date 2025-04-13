@@ -1,11 +1,7 @@
 ﻿using System.Drawing;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using Method = InoriDock.WPF.Public.Methods.Methods;
+using Method = InoriDock.WPF.Methods.Methods;
 
-namespace InoriDock.WPF.Public.DockComponents.DockItem
+namespace InoriDock.WPF.Components.DockComponent.DockItem
 {
     public class LnkItem : ShortcutItem
     {

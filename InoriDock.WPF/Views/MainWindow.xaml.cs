@@ -2,8 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Effects;
-using InoriDock.WPF.Public;
-using InoriDock.WPF.Public.Methods;
 using InoriDock.WPF.ViewModels;
 
 namespace InoriDock.WPF.Views

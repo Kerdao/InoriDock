@@ -12,10 +12,11 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="IconUtilities" Version="1.0.2" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Public\Controls\" />
+    <Folder Include="Controls\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,13 +25,23 @@
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Public\Style\WindowStyle.xaml">
+    <Page Remove="Style\**" />
+    <Page Update="Public\DockComponents\Style\DockItemStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Remove="Style\**" />
-    <Page Update="Public\DockComponents\Style\DockItemStyle.xaml">
+    <Page Update="Components\DockComponent\Animation\DockItemAnimation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\DockComponent\Style\DockItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Style\WindowStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>

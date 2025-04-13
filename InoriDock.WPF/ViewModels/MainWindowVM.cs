@@ -10,18 +10,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Threading.Tasks;
-
-using InoriDock.WPF.Public;
 using System.Windows.Threading;
-using Str = InoriDock.WPF.Public.Methods.Struct;
+using Str = InoriDock.WPF.Methods.Struct;
 using System.Drawing;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-using DockCom = InoriDock.WPF.Public.DockComponents.Dock;
-using InoriDock.WPF.Public.DockComponents;
-using InoriDock.WPF.Public.Methods;
-using Dock = InoriDock.WPF.Public.DockComponents.Dock;
+using DockCom = InoriDock.WPF.Components.DockComponent.Dock;
+using Dock = InoriDock.WPF.Components.DockComponent.Dock;
 
 namespace InoriDock.WPF.ViewModels
 {
@@ -106,7 +102,7 @@ namespace InoriDock.WPF.ViewModels
                     MessageBox.Show($"文件路径: {file}");
 
                     var a = IconUtilities.ExtractIcon(file, IconSize.Jumbo);
-                    var b = Methods.IconToBitmapSource(a);
+                    var b = Methods.Methods.IconToBitmapSource(a);
 
                 }
             }

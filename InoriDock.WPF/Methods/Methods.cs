@@ -4,11 +4,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using Str = InoriDock.WPF.Public.Methods.Struct;
+using Str = InoriDock.WPF.Methods.Struct;
 
-namespace InoriDock.WPF.Public.Methods
+namespace InoriDock.WPF.Methods
 {
     class Methods
     {
