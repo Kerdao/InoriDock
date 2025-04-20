@@ -65,7 +65,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Icon\FailedImage.png">
+    <Resource Include="Resources\Icon\FailedImage.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

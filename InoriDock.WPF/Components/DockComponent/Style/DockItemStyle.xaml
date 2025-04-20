@@ -5,7 +5,7 @@
     <Style TargetType="{x:Type controls:LnkItem}">
         <Setter Property="Width" Value="80" />
         <Setter Property="Height" Value="80" />
-        <Setter Property="Source" Value="pack://application:,,,/Assets/Icon/FailedImage.png" />
+        <Setter Property="Source" Value="pack://application:,,,/Resources/Icon/FailedImage.png" />
         <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
         <Setter Property="RenderTransform">
             <Setter.Value>
