@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Method = InoriDock.WPF.Methods.Methods;
@@ -7,15 +8,6 @@ namespace InoriDock.WPF.Components.DockComponent.DockItem
 {
     public class DockItemBase : Button
     {
-        public int Index
-        {
-            get { return (int)GetValue(IndexProperty); }
-            set { SetValue(IndexProperty, value); }
-        }
-        // Using a DependencyProperty as the backing store for Index.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IndexProperty =
-            DependencyProperty.Register("Index", typeof(int), typeof(DockItemBase), new PropertyMetadata(-1));
-
         public ImageSource Source
         {
             get { return (ImageSource)GetValue(SourceProperty); }
@@ -27,9 +19,31 @@ namespace InoriDock.WPF.Components.DockComponent.DockItem
 
         private ResourceDictionary _resourceDictionary;
         public string Type { get; set; }
+        public Panel DockOf { get; set; }
 
         public DockItemBase()
         {
+            // 使用 Application.LoadComponent 加载资源字典
+            //var uri = new Uri(
+            //    "pack://application:,,,/Components/DockbarComponents/Animation/DockItemAnimation.xaml",
+            //    UriKind.Relative
+            //);
+            //_resourceDictionary = (ResourceDictionary)Application.LoadComponent(uri);
+            MouseEnter += OnDockItemMouseEnter;
+            MouseLeave += OnDockItemMouseLeave;
+        }
+
+        private static void OnDockItemMouseEnter(object sender, MouseEventArgs e)
+        {
+            var item = (DockItemBase)sender;
+            Dock.GetDockObject(item.DockOf).MouseOverIndex = Dock.GetDockObject(item.DockOf).Children.IndexOf(item);
+
+            e.Handled = true;
+        }
+        private static void OnDockItemMouseLeave(object sender, MouseEventArgs e)
+        {
+            //暂且不写
+            e.Handled = true;
         }
 
         private void StartAnimation(string AnimationName, double To)
@@ -72,26 +86,26 @@ namespace InoriDock.WPF.Components.DockComponent.DockItem
             newSb.Begin();
         }
 
-        public void UpdateIndex()
-        {
-            if ((Methods.Methods.GetParent(this) is Panel panel) == false)
-            {
-                Index = -1;
-                return;
-            }
+        //public void UpdateIndex()
+        //{
+        //    if ((Methods.Methods.GetParent(this) is Panel panel) == false)
+        //    {
+        //        Index = -1;
+        //        return;
+        //    }
 
-            int i = 0;
-            DockList list = Dock.GetDockList;
-            foreach (var item in list[Dock.GetPanclIndex(panel)].Item2)
-            {
-                if (this == item)
-                {
-                    this.Index = i;
-                }
-                i += 1;
-            }
-            return;
-        }
+        //    int i = 0;
+        //    DockList list = Dock.GetDockList;
+        //    foreach (var item in list[Dock.GetPanclIndex(panel)].Item2)
+        //    {
+        //        if (this == item)
+        //        {
+        //            this.Index = i;
+        //        }
+        //        i += 1;
+        //    }
+        //    return;
+        //}
         //鼠标over或在旁边的动画
         public void BouncingAnimation(int Grade)
         {

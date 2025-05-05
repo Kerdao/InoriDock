@@ -88,7 +88,7 @@ namespace InoriDock.WPF.Methods
             if (control is UIElement controlElement)
             {
                 // 获取控件的父容器
-                var parent = VisualTreeHelper.GetParent(controlElement) as Panel;
+                var parent = LogicalTreeHelper.GetParent(controlElement) as Panel;
                 if (parent == null)
                 {
                     // 如果父容器不是 Panel 类型，则返回 -1
@@ -228,7 +228,7 @@ namespace InoriDock.WPF.Methods
 
         public static object GetParent(DependencyObject Control)
         {
-            return VisualTreeHelper.GetParent(Control);
+            return LogicalTreeHelper.GetParent(Control);
         }
 
 

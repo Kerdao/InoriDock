@@ -20,7 +20,7 @@ namespace InoriDock.WPF.Components.DockComponent.DockItem
             }
         }
 
-        public LnkItem(string TargetPath)
+        public LnkItem()
         {
             
         }

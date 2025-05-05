@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:dockComponent="clr-namespace:InoriDock.WPF.Components.DockComponent"
+        xmlns:dockCom="clr-namespace:InoriDock.WPF.Components.DockComponent"
+        xmlns:item="clr-namespace:InoriDock.WPF.Components.DockComponent.DockItem"
         Title="MainWindow"
         Width="1200"
         Height="200"
@@ -41,11 +42,15 @@
             -->
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        dockComponent:Dock.IsDockEnabled="True"
+                        dockCom:Dock.IsDockEnabled="True"
                         Background="Transparent"
                         Orientation="Horizontal">
 
-                <!--<do:DockItem/>-->
+                <item:LnkItem />
+                <item:LnkItem />
+                <item:LnkItem />
+                <item:LnkItem />
+                <item:LnkItem />
             </StackPanel>
         </Border>
     </Border>
