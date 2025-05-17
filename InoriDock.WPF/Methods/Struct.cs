@@ -1,4 +1,4 @@
-﻿namespace InoriDock.WPF.Methods
+﻿namespace InoriDock.WPF
 {
     public class Struct
     {

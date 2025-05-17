@@ -11,7 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using System.Windows.Threading;
-using Str = InoriDock.WPF.Methods.Struct;
+using Str = InoriDock.WPF.Struct;
 using System.Drawing;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -102,7 +102,7 @@ namespace InoriDock.WPF.ViewModels
                     MessageBox.Show($"文件路径: {file}");
 
                     var a = IconUtilities.ExtractIcon(file, IconSize.Jumbo);
-                    var b = Methods.Methods.IconToBitmapSource(a);
+                    var b = Methods.IconToBitmapSource(a);
 
                 }
             }

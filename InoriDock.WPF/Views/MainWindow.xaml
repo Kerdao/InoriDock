@@ -45,12 +45,15 @@
                         dockCom:Dock.IsDockEnabled="True"
                         Background="Transparent"
                         Orientation="Horizontal">
-
-                <item:LnkItem />
-                <item:LnkItem />
-                <item:LnkItem />
-                <item:LnkItem />
-                <item:LnkItem />
+                <item:LnkItem/>
+                <item:LnkItem/>
+                <item:LnkItem/>
+                <item:LnkItem/>
+                <item:LnkItem/>
+                <item:LnkItem/>
+                <item:LnkItem/>
+                <item:LnkItem/>
+                <item:LnkItem/>
             </StackPanel>
         </Border>
     </Border>

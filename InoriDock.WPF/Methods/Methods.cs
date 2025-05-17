@@ -5,9 +5,9 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Str = InoriDock.WPF.Methods.Struct;
+using Str = InoriDock.WPF.Struct;
 
-namespace InoriDock.WPF.Methods
+namespace InoriDock.WPF
 {
     class Methods
     {
@@ -122,15 +122,10 @@ namespace InoriDock.WPF.Methods
         }
 
         //返回资源字典
-        public static ResourceDictionary GetResource(string uri)
+        public static ResourceDictionary GetResourceDictionary(string uri)
         {
-            foreach (ResourceDictionary rd in Application.Current.Resources.MergedDictionaries)
-            {
-                if (rd.Source == new Uri(uri, UriKind.RelativeOrAbsolute))
-                    return rd;
-            }
-
-            return null;
+            var euri = new Uri(uri, UriKind.Relative);
+            return (ResourceDictionary)Application.LoadComponent(euri);
         }
 
 

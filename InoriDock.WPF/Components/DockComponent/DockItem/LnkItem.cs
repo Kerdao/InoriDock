@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-using Method = InoriDock.WPF.Methods.Methods;
+using Method = InoriDock.WPF.Methods;
 
 namespace InoriDock.WPF.Components.DockComponent.DockItem
 {

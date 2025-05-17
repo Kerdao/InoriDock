@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using Method = InoriDock.WPF.Methods.Methods;
+using Method = InoriDock.WPF.Methods;
 namespace InoriDock.WPF.Components.DockComponent.DockItem
 {
     public class DockItemBase : Button
@@ -23,12 +23,7 @@ namespace InoriDock.WPF.Components.DockComponent.DockItem
 
         public DockItemBase()
         {
-            // 使用 Application.LoadComponent 加载资源字典
-            //var uri = new Uri(
-            //    "pack://application:,,,/Components/DockbarComponents/Animation/DockItemAnimation.xaml",
-            //    UriKind.Relative
-            //);
-            //_resourceDictionary = (ResourceDictionary)Application.LoadComponent(uri);
+            _resourceDictionary = Method.GetResourceDictionary("/InoriDock.WPF;component/Components/DockComponent/Animation/DockItemAnimation.xaml");
             MouseEnter += OnDockItemMouseEnter;
             MouseLeave += OnDockItemMouseLeave;
         }
@@ -86,26 +81,6 @@ namespace InoriDock.WPF.Components.DockComponent.DockItem
             newSb.Begin();
         }
 
-        //public void UpdateIndex()
-        //{
-        //    if ((Methods.Methods.GetParent(this) is Panel panel) == false)
-        //    {
-        //        Index = -1;
-        //        return;
-        //    }
-
-        //    int i = 0;
-        //    DockList list = Dock.GetDockList;
-        //    foreach (var item in list[Dock.GetPanclIndex(panel)].Item2)
-        //    {
-        //        if (this == item)
-        //        {
-        //            this.Index = i;
-        //        }
-        //        i += 1;
-        //    }
-        //    return;
-        //}
         //鼠标over或在旁边的动画
         public void BouncingAnimation(int Grade)
         {
