@@ -72,9 +72,6 @@ public class Dock
         {
             Children = new List<DockItemBase>()
         });
-        //SetPanclIndex(panel, _dockList.Count);
-        //_dockList.Add(panel);
-        //_dockItemList.Add(new List<DockItemBase>());
 
         foreach (object item in panel.Children)
         {

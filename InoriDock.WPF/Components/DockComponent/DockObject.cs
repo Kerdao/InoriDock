@@ -26,7 +26,8 @@ namespace InoriDock.WPF.Components.DockComponent
             {
                 if (value != -1)
                 {
-                    // >1if用于修复在没有触发DockMouseLeave事件情况下有多个Grade为1的item
+                    /*此处注释代码虽然解决多个Grade为1的问题，但是会有卡顿问题
+                     * >1 if用于修复在没有触发DockMouseLeave事件情况下有多个Grade为1的item
                     if (Math.Abs(value - _mouseOverIndex) > 1 && value != -1 && _mouseOverIndex != -1)
                     {
                         //MessageBox.Show("c  new:"+  (int)e.NewValue +" old:"+ (int)e.OldValue);
@@ -38,6 +39,7 @@ namespace InoriDock.WPF.Components.DockComponent
                         SetDockItemStyle(_mouseOverIndex + 2, -1);
                         SetDockItemStyle(_mouseOverIndex + 3, -1);
                     }
+                    */
                     SetDockItemStyle(value - 3, 4);
                     SetDockItemStyle(value - 2, 3);
                     SetDockItemStyle(value - 1, 2);
