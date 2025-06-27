@@ -1,8 +1,10 @@
-﻿using System.Drawing;
+﻿using InoriDock.WPF.Components.DockComponent.DockItems;
+using InoriDock.WPF.ViewModels;
+using Newtonsoft.Json;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Effects;
-using InoriDock.WPF.ViewModels;
 
 namespace InoriDock.WPF.Views
 {
@@ -16,6 +18,12 @@ namespace InoriDock.WPF.Views
             InitializeComponent();
 
             this.DataContext = new MainWindowVM(this);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            sp.ToJObject();
         }
     }
 }

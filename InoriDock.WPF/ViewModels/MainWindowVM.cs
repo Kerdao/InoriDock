@@ -1,23 +1,25 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Config.Net;
+using InoriDock.WPF.Services.Config.Helper;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Threading.Tasks;
-using System.Windows.Threading;
-using Str = InoriDock.WPF.Struct;
-using System.Drawing;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-
-using DockCom = InoriDock.WPF.Components.DockComponent.Dock;
+using System.Windows.Threading;
+using System.IO;
+using InoriDock.WPF.Components.DockComponent;
 using Dock = InoriDock.WPF.Components.DockComponent.Dock;
+using Str = InoriDock.WPF.Struct;
 
 namespace InoriDock.WPF.ViewModels
 {
@@ -31,6 +33,7 @@ namespace InoriDock.WPF.ViewModels
         public ICommand WindowLoadedCommond { get; private set; }
         public ICommand BorderPreviewDragOver { get; private set; }
         public ICommand BorderDrop { get; private set; }
+        public ICommand MenuItemClick { get; private set; }
 
         public MainWindowVM(Window window) 
         {
@@ -38,7 +41,10 @@ namespace InoriDock.WPF.ViewModels
             WindowLoadedCommond = new RelayCommand<Object?>(OnWindowLoaded);
             BorderPreviewDragOver = new RelayCommand<Object?>(OnBorderPreviewDragOver);
             BorderDrop = new RelayCommand<Object?>(OnBorderDrop);
+            MenuItemClick = new RelayCommand<dynamic>(OnMenuItemClick);
         }
+
+
 
         private void OnWindowLoaded(Object? parameter)
         {
@@ -101,10 +107,23 @@ namespace InoriDock.WPF.ViewModels
                 {
                     MessageBox.Show($"文件路径: {file}");
 
-                    var a = IconUtilities.ExtractIcon(file, IconSize.Jumbo);
-                    var b = Methods.IconToBitmapSource(a);
+                    var icon = IconUtilities.ExtractIcon(file, IconSize.Jumbo);
+                    
+                    var bs = Methods.IconToBitmapSource(icon);
 
                 }
+            }
+        }
+
+        private void OnMenuItemClick(dynamic valueObject)
+        {
+            Panel obj = valueObject.CommondParameter;
+            switch (valueObject.Header)
+            {
+                case "Save":
+                    DockObject dockObject = Dock.GetDockObject(obj);
+                    dockObject.Save();
+                    break;
             }
         }
     }

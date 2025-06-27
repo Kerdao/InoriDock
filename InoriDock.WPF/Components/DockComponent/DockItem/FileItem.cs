@@ -1,4 +1,4 @@
-﻿namespace InoriDock.WPF.Components.DockComponent.DockItem
+﻿namespace InoriDock.WPF.Components.DockComponent.DockItems
 {
     public class FileItem
     {

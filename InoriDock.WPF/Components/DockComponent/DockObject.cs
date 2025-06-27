@@ -1,4 +1,5 @@
-﻿using InoriDock.WPF.Components.DockComponent.DockItem;
+﻿using InoriDock.WPF.Components.DockComponent.DockItems;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,27 @@ namespace InoriDock.WPF.Components.DockComponent
 {
     public class DockObject
     {
-        public DockObject(Panel DockOf) 
+        public DockObject(Panel DockOf)
         {
             _dockOf = DockOf;
         }
         private readonly Panel _dockOf;
-
+        public List<DockItem> Children;
         private int _mouseOverIndex;
+        private void SetDockItemStyle(int index, int Grade)
+        {
+            //因为index序列从0开始
+            if (index < 0 || index + 1 > Children.Count)
+            {
+                //筛选器
+                return;
+            }
+
+            Children[index].BouncingAnimation(Grade);
+
+
+
+        }
         public int MouseOverIndex
         {
             get => _mouseOverIndex;
@@ -57,20 +72,17 @@ namespace InoriDock.WPF.Components.DockComponent
                 }
             }
         }
-        public List<DockItemBase> Children;
-        private void SetDockItemStyle(int index, int Grade)
+        public void Save()
         {
-            //因为index序列从0开始
-            if (index < 0 || index + 1 > Children.Count)
+            var root = new JObject();
+            var array = new JArray();
+            foreach (DockItem child in Children)
             {
-                //筛选器
-                return;
+                array.Add(child.ToJObject());
             }
-
-            Children[index].BouncingAnimation(Grade);
-
-
-
+            root["Children"] = array;
+            string json = root.ToString();
+            return;
         }
     }
 }

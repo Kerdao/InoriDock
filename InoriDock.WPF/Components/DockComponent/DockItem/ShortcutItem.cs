@@ -1,6 +1,6 @@
-﻿namespace InoriDock.WPF.Components.DockComponent.DockItem
+﻿namespace InoriDock.WPF.Components.DockComponent.DockItems
 {
-    public class ShortcutItem : DockItemBase
+    public class ShortcutItem : DockItem
     {
         public virtual void Launch()
         {

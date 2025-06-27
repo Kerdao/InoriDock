@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using InoriDock.WPF.Components.DockComponent.DockItem;
+using InoriDock.WPF.Components.DockComponent.DockItems;
 
 namespace InoriDock.WPF.Components.DockComponent;
 
@@ -59,10 +59,10 @@ public class Dock
         DependencyProperty.RegisterAttached("DockObject", typeof(DockObject), typeof(Dock));
 
 
-    static Dock()
-    {
+    //static Dock()
+    //{
 
-    }
+    //}
 
     private static void OnDockLoaded(object sender, RoutedEventArgs e)
     {
@@ -70,12 +70,12 @@ public class Dock
 
         SetDockObject(panel, new DockObject(panel)
         {
-            Children = new List<DockItemBase>()
+            Children = new List<DockItem>()
         });
 
         foreach (object item in panel.Children)
         {
-            if (item is DockItemBase dockItem)
+            if (item is DockItem dockItem)
             {
                 dockItem.DockOf = panel;
                 GetDockObject(panel).Children.Add(dockItem);

@@ -4,9 +4,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Method = InoriDock.WPF.Methods;
-namespace InoriDock.WPF.Components.DockComponent.DockItem
+namespace InoriDock.WPF.Components.DockComponent.DockItems
 {
-    public class DockItemBase : Button
+    //此类定义了DockItem的基础行为和属性
+    public abstract class DockItemBase : Button
     {
         public ImageSource Source
         {
@@ -16,10 +17,9 @@ namespace InoriDock.WPF.Components.DockComponent.DockItem
         // Using a DependencyProperty as the backing store for Source.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SourceProperty =
             DependencyProperty.Register("Source", typeof(ImageSource), typeof(DockItemBase));
+        public Panel DockOf { get; set; }
 
         private ResourceDictionary _resourceDictionary;
-        public string Type { get; set; }
-        public Panel DockOf { get; set; }
 
         public DockItemBase()
         {
@@ -27,10 +27,9 @@ namespace InoriDock.WPF.Components.DockComponent.DockItem
             MouseEnter += OnDockItemMouseEnter;
             MouseLeave += OnDockItemMouseLeave;
         }
-
         private static void OnDockItemMouseEnter(object sender, MouseEventArgs e)
         {
-            var item = (DockItemBase)sender;
+            var item = (DockItem)sender;
             Dock.GetDockObject(item.DockOf).MouseOverIndex = Dock.GetDockObject(item.DockOf).Children.IndexOf(item);
 
             e.Handled = true;
