@@ -16,14 +16,13 @@ namespace InoriDock.WPF.Views
         public MainWindow()
         {
             InitializeComponent();
-
             this.DataContext = new MainWindowVM(this);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            sp.ToJObject();
+
         }
     }
 }

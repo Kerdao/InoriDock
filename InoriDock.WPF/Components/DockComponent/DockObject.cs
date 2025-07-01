@@ -1,7 +1,9 @@
 ﻿using InoriDock.WPF.Components.DockComponent.DockItems;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,9 +17,9 @@ namespace InoriDock.WPF.Components.DockComponent
     {
         public DockObject(Panel DockOf)
         {
-            _dockOf = DockOf;
+            _PanelOf = DockOf;
         }
-        private readonly Panel _dockOf;
+        private readonly Panel _PanelOf;
         public List<DockItem> Children;
         private int _mouseOverIndex;
         private void SetDockItemStyle(int index, int Grade)
@@ -72,6 +74,13 @@ namespace InoriDock.WPF.Components.DockComponent
                 }
             }
         }
+        private JsonSerializerSettings setting = new JsonSerializerSettings
+        {
+            Formatting = Formatting.None,
+            NullValueHandling = NullValueHandling.Ignore, // 忽略 null 值
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore, // 忽略循环引用
+        };
+
         public void Save()
         {
             var root = new JObject();
@@ -81,8 +90,32 @@ namespace InoriDock.WPF.Components.DockComponent
                 array.Add(child.ToJObject());
             }
             root["Children"] = array;
-            string json = root.ToString();
-            return;
+
+            string json = JsonConvert.SerializeObject(root, Formatting.None);
+
+            string path = @"config\DockLayout.json";
+            string directory = Path.GetDirectoryName(path);
+
+            Directory.CreateDirectory(directory);
+            File.WriteAllText(path, json);
+        }
+        public void Load()
+        {
+            string path = @"config\DockLayout.json";
+            if (!File.Exists(path))
+            {
+                return;
+            }
+            string json = File.ReadAllText(path);
+            JObject root = JObject.Parse(json);
+            JArray array = (JArray)root["Children"];
+            foreach (var item in array)
+            {
+                DockItem dockItem = (DockItem)Activator.CreateInstance(Type.GetType(item["Type"].ToString()));
+                dockItem.LoadFromJObject((JObject)item, _PanelOf);
+                Children.Add(dockItem);
+                _PanelOf.Children.Add(dockItem);
+            }
         }
     }
 }

@@ -9,6 +9,6 @@ namespace InoriDock.WPF.Services.DockLayoutLoader.Models
 {
     public class DockLayoutModel
     {
-        List<DockItemBase> Children { get; set; }
+        List<DockItem> Children { get; set; }
     }
 }

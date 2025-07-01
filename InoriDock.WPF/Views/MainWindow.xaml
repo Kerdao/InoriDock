@@ -21,10 +21,12 @@
         <ut:BindingProxy x:Key="DockBarProxy" Data="{Binding ElementName=DockBar}" />
         <conver:MenuParamsConverter x:Key="MenuParamsConverter" />
     </Window.Resources>
-
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding WindowLoadedCommond}" CommandParameter="nihao" />
+            <i:InvokeCommandAction Command="{Binding WindowLoadedCommond}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="ContentRendered">
+            <i:InvokeCommandAction Command="{Binding ContentRenderedCommond}" CommandParameter="{Binding ElementName=DockBar}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -50,7 +52,13 @@
                         </MultiBinding>
                     </MenuItem.CommandParameter>
                 </MenuItem>
-                <MenuItem Header="Edit">
+                <MenuItem Header="Load" Command="{Binding MenuItemClick}">
+                    <MenuItem.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MenuParamsConverter}">
+                            <Binding RelativeSource="{RelativeSource Self}" Path="Header" />
+                            <Binding Source="{StaticResource DockBarProxy}" Path="Data" />
+                        </MultiBinding>
+                    </MenuItem.CommandParameter>
                 </MenuItem>
             </ContextMenu>
         </Border.ContextMenu>
@@ -71,8 +79,8 @@
                         dockCom:Dock.IsDockEnabled="True"
                         Background="Transparent"
                         Orientation="Horizontal">
-                <Button Width="80" Click="Button_Click" />
-                <item:LnkItem x:Name="sp" />
+                <!--<Button Width="80" Click="Button_Click" />-->
+
             </StackPanel>
         </Border>
     </Border>

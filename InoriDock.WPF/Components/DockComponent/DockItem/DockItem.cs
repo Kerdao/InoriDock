@@ -13,7 +13,8 @@ namespace InoriDock.WPF.Components.DockComponent.DockItems
     //此类用于定义基础DockItem应具有基础属性和行为
     public class DockItem : DockItemBase
     {
-        public virtual string Type { get; }
+
+        //public virtual string Type { get; }
 
         public virtual JObject ToJObject()
         {
@@ -23,9 +24,9 @@ namespace InoriDock.WPF.Components.DockComponent.DockItems
             };
         }
 
-        public virtual void LoadFromJObject(JObject jObject)
+        public virtual void LoadFromJObject(JObject jObject, Panel DockOf)
         {
-            
+            this.DockOf = DockOf;
         }
     }
 }

@@ -92,14 +92,14 @@ public class Dock
         GetDockObject((DependencyObject)sender).MouseOverIndex = -1;
     }
 
-    /// <summary>
-    /// 刷新指定Dock(如有加入DockItem)
-    /// </summary>
-    /// <param name="obj"></param>
-    public static void Refresh(Panel panel)
-    {
+    ///// <summary>
+    ///// 刷新指定Dock(如有加入DockItem)
+    ///// </summary>
+    ///// <param name="obj"></param>
+    //public static void Refresh(Panel panel)
+    //{
 
-    }
+    //}
 
     public static void ShowPreviewItem(int DockIdex, int InsertIndex)
     {
