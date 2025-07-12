@@ -155,9 +155,9 @@ namespace InoriDock.WPF.ViewModels
                             break;
                         default:
                             break;
-                    }
-                    return;
+                    } 
                 }
+                return;
             }
         }
 

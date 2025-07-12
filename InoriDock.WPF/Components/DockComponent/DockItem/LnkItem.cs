@@ -14,16 +14,6 @@ namespace InoriDock.WPF.Components.DockComponent.DockItems
 {
     public class LnkItem : ShortcutItem
     {
-        //private Icon _icon;
-
-        //public Icon Icon {
-        //    get => field;
-        //    set
-        //    {
-        //        field = value;
-        //        Source = Method.IconToBitmapSource(value);
-        //    }
-        //}
         /// <summary>
         /// 目标路径
         /// </summary>
@@ -43,7 +33,7 @@ namespace InoriDock.WPF.Components.DockComponent.DockItems
                     IcoSource = null;
                 }
             }
-        }
+        } = string.Empty;
         /// <summary>
         /// 启动参数
         /// </summary>
@@ -94,21 +84,23 @@ namespace InoriDock.WPF.Components.DockComponent.DockItems
         public override JObject ToJObject()
         {
             var obj = base.ToJObject();
-            obj["TargetPath"] = TargetPath;
-            obj["Arguments"] = Arguments;
-            obj["Description"] = Description;
-            //obj["IconLocation"] = IconLocation;
-            obj["WindowStyle"] = WindowStyle;
-            obj["WorkingDirectory"] = WorkingDirectory;
+            obj[nameof(TargetPath)] = TargetPath;
+            obj[nameof(Arguments)] = Arguments;
+            obj[nameof(Description)] = Description;
+            obj[nameof(WindowStyle)] = WindowStyle;
+            obj[nameof(WorkingDirectory)] = WorkingDirectory;
             return obj;
         }
 
         public override void LoadFromJObject(JObject jObject, Panel DockOf)
         {
             base.LoadFromJObject(jObject, DockOf);
-            TargetPath = jObject[nameof(TargetPath)]?.ToString();
-            //Icon = IconUtilities.ExtractIcon(TargetPath, IconSize.Jumbo);
-            //IconLocation = jObject[nameof(IconLocation)]?.ToString();
+            TargetPath = jObject[nameof(TargetPath)].ToString();
+            TargetPath = jObject[nameof(Arguments)].ToString();
+            TargetPath = jObject[nameof(Description)].ToString();
+            TargetPath = jObject[nameof(WindowStyle)].ToString();
+            TargetPath = jObject[nameof(WorkingDirectory)].ToString();
+
         }
 
 

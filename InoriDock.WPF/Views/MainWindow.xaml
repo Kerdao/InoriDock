@@ -23,7 +23,7 @@
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding WindowLoadedCommond}"/>
+            <i:InvokeCommandAction Command="{Binding WindowLoadedCommond}" />
         </i:EventTrigger>
         <i:EventTrigger EventName="ContentRendered">
             <i:InvokeCommandAction Command="{Binding ContentRenderedCommond}" CommandParameter="{Binding ElementName=DockBar}" />
