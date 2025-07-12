@@ -1,29 +1,70 @@
-﻿using Newtonsoft.Json;
+﻿using IWshRuntimeLibrary;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Method = InoriDock.WPF.Methods;
 
 namespace InoriDock.WPF.Components.DockComponent.DockItems
 {
     public class LnkItem : ShortcutItem
     {
+        //private Icon _icon;
+
+        //public Icon Icon {
+        //    get => field;
+        //    set
+        //    {
+        //        field = value;
+        //        Source = Method.IconToBitmapSource(value);
+        //    }
+        //}
         /// <summary>
         /// 目标路径
         /// </summary>
-        public string? TargetPath { get; set; }
-        private Icon _icon;
-
-        public Icon Icon {
-            get => _icon;
-            set
+        public string TargetPath
+        {
+            get => field;
+            set 
             {
-                _icon = value;
-                Source = Method.IconToBitmapSource(value);
+                field = value;
+                try
+                {
+                    var icon = IconUtilities.ExtractIcon(value, IconSize.Jumbo);
+                    IcoSource = Method.IconToBitmapSource(icon);
+                }
+                catch (FileNotFoundException e)
+                {
+                    IcoSource = null;
+                }
             }
         }
+        /// <summary>
+        /// 启动参数
+        /// </summary>
+        public string Arguments { get; set; } = string.Empty;
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Description { get; set; } = string.Empty;
+        /// <summary>
+        /// 图标路径
+        /// </summary>
+        //public string IconLocation { get; set; }
+        /// <summary>
+        /// 窗口显示方式
+        /// </summary>
+        public int WindowStyle { get; set; } = 0;
+        /// <summary>
+        /// 工作目录
+        /// </summary>
+        public string WorkingDirectory { get; set; }
+
         public LnkItem()
         {
             Click += (sender, e) =>
@@ -54,6 +95,11 @@ namespace InoriDock.WPF.Components.DockComponent.DockItems
         {
             var obj = base.ToJObject();
             obj["TargetPath"] = TargetPath;
+            obj["Arguments"] = Arguments;
+            obj["Description"] = Description;
+            //obj["IconLocation"] = IconLocation;
+            obj["WindowStyle"] = WindowStyle;
+            obj["WorkingDirectory"] = WorkingDirectory;
             return obj;
         }
 
@@ -61,9 +107,10 @@ namespace InoriDock.WPF.Components.DockComponent.DockItems
         {
             base.LoadFromJObject(jObject, DockOf);
             TargetPath = jObject[nameof(TargetPath)]?.ToString();
-            Icon = IconUtilities.ExtractIcon(TargetPath, IconSize.Jumbo);
+            //Icon = IconUtilities.ExtractIcon(TargetPath, IconSize.Jumbo);
+            //IconLocation = jObject[nameof(IconLocation)]?.ToString();
         }
 
-        
+
     }
 }

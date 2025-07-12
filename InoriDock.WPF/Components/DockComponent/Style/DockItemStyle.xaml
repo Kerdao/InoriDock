@@ -5,7 +5,7 @@
     <Style TargetType="{x:Type controls:LnkItem}">
         <Setter Property="Width" Value="80" />
         <Setter Property="Height" Value="80" />
-        <Setter Property="Source" Value="pack://application:,,,/Resources/Icon/FailedImage.png" />
+        <Setter Property="IcoSource" Value="pack://application:,,,/Resources/Icon/FailedImage.png" />
         <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
         <Setter Property="RenderTransform">
             <Setter.Value>
@@ -25,7 +25,7 @@
                             Background="Transparent"
                             CornerRadius="5">
                         <!--<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />-->
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="{TemplateBinding Source}" />
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="{TemplateBinding IcoSource}" />
                     </Border>
 
                 </ControlTemplate>

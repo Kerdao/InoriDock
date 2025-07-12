@@ -6,6 +6,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Str = InoriDock.WPF.Struct;
+using IWshRuntimeLibrary;
 
 namespace InoriDock.WPF
 {
@@ -134,8 +135,10 @@ namespace InoriDock.WPF
         /// </summary>
         /// <param name="lnkFilePath">快捷方式文件的完整路径</param>
         /// <returns>包含快捷方式信息的 ShortcutDescription 对象</returns>
-        public static Struct.ShortcutDescription? ReadShortcut(string lnkFilePath)
+        public static IWshShortcut ReadShortcut(string lnkFilePath)
         {
+            WshShell shell = new WshShell();
+            IWshShortcut shortcut = shell.CreateShortcut(lnkFilePath);
             var shellType = Type.GetTypeFromProgID("WScript.Shell");
 
             if (shellType == null)
@@ -143,25 +146,26 @@ namespace InoriDock.WPF
                 throw new InvalidOperationException("WScript.Shell 类型未找到。请确保系统支持 Windows Script Host。");
             }
 
-            dynamic shell = Activator.CreateInstance(shellType);
-            dynamic? shortcut = shell.CreateShortcut(lnkFilePath);
+            //dynamic shell = Activator.CreateInstance(shellType);
+            //dynamic? shortcut = shell.CreateShortcut(lnkFilePath);
 
             if (shortcut == null)
             {
                 return null;
             }
 
-            return new Struct.ShortcutDescription()
-            {
-                Arguments = shortcut.Arguments,
-                Description = shortcut.Description,
-                FullName = shortcut.FullName,
-                Hotkey = shortcut.Hotkey,
-                IconLocation = shortcut.IconLocation,
-                TargetPath = shortcut.TargetPath,
-                WindowStyle = shortcut.WindowStyle,
-                WorkingDirectory = shortcut.WorkingDirectory,
-            };
+            //return new Struct.ShortcutDescription()
+            //{
+            //    Arguments = shortcut.Arguments,
+            //    Description = shortcut.Description,
+            //    FullName = shortcut.FullName,
+            //    Hotkey = shortcut.Hotkey,
+            //    IconLocation = shortcut.IconLocation,
+            //    TargetPath = shortcut.TargetPath,
+            //    WindowStyle = shortcut.WindowStyle,
+            //    WorkingDirectory = shortcut.WorkingDirectory,
+            //};
+            return shortcut;
         }
 
         // 释放 GDI 对象

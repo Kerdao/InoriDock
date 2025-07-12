@@ -9,14 +9,15 @@ namespace InoriDock.WPF.Components.DockComponent.DockItems
     //此类定义了DockItem的基础行为和属性
     public abstract class DockItemBase : Button
     {
-        public ImageSource Source
+        public ImageSource? IcoSource
         {
-            get { return (ImageSource)GetValue(SourceProperty); }
-            set { SetValue(SourceProperty, value); }
+            get { return (ImageSource)GetValue(IcoSourceProperty); }
+            set { SetValue(IcoSourceProperty, value); }
         }
-        // Using a DependencyProperty as the backing store for Source.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SourceProperty =
-            DependencyProperty.Register("Source", typeof(ImageSource), typeof(DockItemBase));
+        // Using a DependencyProperty as the backing store for IcoSource.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IcoSourceProperty =
+            DependencyProperty.Register("IcoSource", typeof(ImageSource), typeof(DockItemBase));
+
         public Panel DockOf { get; set; }
 
         private ResourceDictionary _resourceDictionary;

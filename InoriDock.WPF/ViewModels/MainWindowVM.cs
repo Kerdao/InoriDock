@@ -22,6 +22,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Dock = InoriDock.WPF.Components.DockComponent.Dock;
 using Str = InoriDock.WPF.Struct;
+using InoriDock.WPF;
 
 namespace InoriDock.WPF.ViewModels
 {
@@ -111,26 +112,51 @@ namespace InoriDock.WPF.ViewModels
             // 检查拖动的数据是否包含文件
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                foreach (string file in files)
+                string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (string path in paths)
                 {
-                    MessageBox.Show($"文件路径: {file}");
+                    
+                    MessageBox.Show($"文件路径: {path}");
                     /*
                      * 待修正
                      * 转变为对应的luk，url
                      *
                      */
-                    var icon = IconUtilities.ExtractIcon(file, IconSize.Jumbo);
-                    var item = new LnkItem
+                    switch (Path.GetExtension(path))
                     {
-                        DockOf = _dock,//待改善，改为构造传参
-                        TargetPath = file,
-                        Icon = icon
-                    };
-                    _dockObject.Children.Add(item);
-                    _dock.Children.Add(item);
-                    
-
+                        case ".lnk":
+                            // 处理 .lnk 文件
+                            //var icon = IconUtilities.ExtractIcon(path, IconSize.Jumbo);
+                            var lnk = Methods.ReadShortcut(path);
+                            var item = new LnkItem
+                            {
+                                DockOf = _dock,
+                                TargetPath = lnk.TargetPath,
+                                Arguments = lnk.Arguments,
+                                Description = lnk.Description,
+                                //IconLocation = lnk.IconLocation,
+                                WindowStyle = lnk.WindowStyle,
+                                WorkingDirectory = lnk.WorkingDirectory
+                            };
+                            _dockObject.Children.Add(item);
+                            _dock.Children.Add(item);
+                            break;
+                        case ".url":
+                            // 处理 .lnk 文件
+                            //var icon = IconUtilities.ExtractIcon(path, IconSize.Jumbo);
+                            //var item = new LnkItem
+                            //{
+                            //    DockOf = _dock,//待改善，改为构造传参
+                            //    TargetPath = path,
+                            //    Icon = icon
+                            //};
+                            //_dockObject.Children.Add(item);
+                            //_dock.Children.Add(item);
+                            break;
+                        default:
+                            break;
+                    }
+                    return;
                 }
             }
         }
