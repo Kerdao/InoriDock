@@ -14,6 +14,8 @@ namespace InoriDock.WPF.Components.DockComponent.DockItems
 {
     public class LnkItem : ShortcutItem
     {
+        private ProcessWindowStyle _windowStyle = ProcessWindowStyle.Normal;
+
         /// <summary>
         /// 目标路径
         /// </summary>
@@ -49,7 +51,43 @@ namespace InoriDock.WPF.Components.DockComponent.DockItems
         /// <summary>
         /// 窗口显示方式
         /// </summary>
-        public int WindowStyle { get; set; } = 0;
+        public int WindowStyle
+        {
+            get
+            {
+                switch (_windowStyle)
+                {  
+                    case ProcessWindowStyle.Normal:
+                        return 1;
+                        break;
+                    case ProcessWindowStyle.Minimized:
+                        return 7;
+                        break;
+                    case ProcessWindowStyle.Maximized:
+                        return 3;
+                        break;
+                    default:
+                        return 1;
+                }
+            }
+            set
+            {
+                switch (value)
+                {
+                    case 1:
+                        _windowStyle = ProcessWindowStyle.Normal; 
+                        break;
+                    case 7:
+                        _windowStyle = ProcessWindowStyle.Minimized; break;
+                    case 3:
+                        _windowStyle = ProcessWindowStyle.Maximized; break;
+                    default:
+                        _windowStyle = ProcessWindowStyle.Normal;
+                        break;
+
+                }
+            }
+        }
         /// <summary>
         /// 工作目录
         /// </summary>
@@ -69,9 +107,12 @@ namespace InoriDock.WPF.Components.DockComponent.DockItems
                 {
                     System.Diagnostics.Process.Start(new ProcessStartInfo
                     {
-                        FileName = TargetPath,
-                        UseShellExecute = true,
-                        //Verb = "runas" // 以管理员身份运行（如果需要）
+                        FileName = this.TargetPath,
+                        Arguments = this.Arguments,
+                        WindowStyle = this._windowStyle,
+                        WorkingDirectory = this.WorkingDirectory,
+                        //UseShellExecute = true,
+                        //Verb = "open"
                     });
                 }
                 catch (Exception ex)
@@ -96,10 +137,10 @@ namespace InoriDock.WPF.Components.DockComponent.DockItems
         {
             base.LoadFromJObject(jObject, DockOf);
             TargetPath = jObject[nameof(TargetPath)].ToString();
-            TargetPath = jObject[nameof(Arguments)].ToString();
-            TargetPath = jObject[nameof(Description)].ToString();
-            TargetPath = jObject[nameof(WindowStyle)].ToString();
-            TargetPath = jObject[nameof(WorkingDirectory)].ToString();
+            Arguments = jObject[nameof(Arguments)].ToString();
+            Description = jObject[nameof(Description)].ToString();
+            WindowStyle = (int)jObject[nameof(WindowStyle)];
+            WorkingDirectory = jObject[nameof(WorkingDirectory)].ToString();
 
         }
 
